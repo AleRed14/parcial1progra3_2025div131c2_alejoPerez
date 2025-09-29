@@ -5,7 +5,7 @@
 
 /* Bordeado */
 
-header{
+/* header{
     border: 1px solid;
 }
 
@@ -43,7 +43,7 @@ body {
 
 a {
     border: 1px solid saddlebrown;
-}
+} */
 
 header {
     display: flex;
@@ -80,4 +80,18 @@ img {
     width: 100rem; /* 1200 pixeles */
     margin: 0 auto;
     padding: 2rem;
+}
+
+h2 {
+    text-align: center;
+}
+ul {
+    text-align: center;
+}
+li{
+    align-items: center;
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+
 }

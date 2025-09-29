@@ -16,9 +16,23 @@ const frutas = [
     {id: 13,    nombre: "sandia",           precio: 10000,  ruta_img: "../img/sandia.jpg"}
 ];
 
+let alumno = {dni: 46288586, nombre: 'Alejo', apellido: 'Perez'};
+
+let est_info = document.getElementById("estInfo");
+
+let catalogoFrutas = document.getElementById("catalogoFrutas");
+
+let barraBusqueda = document.getElementById("barraBusqueda");
+
+let carritoFrutas = [];
+let productosCarrito = document.getElementById("productosCarrito");
+
+let cantCarrito = document.getElementById("cantCarrito");
+let valorTotal = document.getElementById("valorTotal");
+
+
 // Ejercicio 2
 
-let alumno = {dni: 46288586, nombre: 'Alejo', apellido: 'Perez'};
 
 /*
     Obtenemos el div "est-info"
@@ -28,7 +42,6 @@ let alumno = {dni: 46288586, nombre: 'Alejo', apellido: 'Perez'};
 
 function imprimirDatosAlumno(alumno){
 
-    let est_info = document.getElementById("estInfo");
 
     let mensajeDatosAlumno = `
         <p>${alumno.nombre} ${alumno.apellido}</p>
@@ -42,7 +55,6 @@ function imprimirDatosAlumno(alumno){
 
 // Ejercicio 3
 
-let catalogoFrutas = document.getElementById("catalogoFrutas");
 
 /*
     Recorremos la lista de frutas, le damos formato html y lo imprimimos en el div "catalogoFrutas".
@@ -68,7 +80,6 @@ function mostrarCatalogoFrutas(frutas) {
 
 // Ejercicio 4
 
-let barraBusqueda = document.getElementById("barraBusqueda");
 
 /*
     Cada vez que se deja de presionar una tecla se filtra las frutas que contengan esa frase y se imprimen en el catalogo de frutas.
@@ -85,8 +96,6 @@ function filtrarProductos() {
 
 // Ejercicio 5
 
-let carritoFrutas = [];
-let productosCarrito = document.getElementById("productosCarrito");
 
 /*
     Se llama cando apretamos el boton Agregar al carrito
@@ -114,14 +123,15 @@ function mostrarCarrito() {
     carritoFrutas.forEach((fruta, i) => {
         cartaCarrito += `
         <li class="bloque-item">
-        <p class="nombre-item">${fruta.nombre} - ${fruta.precio}</p>
+        <p class="nombre-item">${fruta.nombre} -  $${fruta.precio}</p>
         <button class="boton-eliminar" onclick="eliminarProducto(${i})">Eliminar</button>
         </li>
         `;
     });
     
     productosCarrito.innerHTML = cartaCarrito;
-    
+    cantProductosEnCarritoHeader();
+    mostrarValorTotal();
 }
 
 /*
@@ -171,13 +181,40 @@ function escribirCarrito() {
     mostrarCarrito();
 }
 
+// Ejercicio 7 
 
+/*
+    Imprime en el header la cantidad de productos que hay en el carrito.
+*/
+
+function cantProductosEnCarritoHeader() {
+    cantCarrito.innerHTML = `
+        <p>Carrito ${carritoFrutas.length} productos</p>
+    `;
+    
+}
+
+/*
+    Recorre toda la lista del carrito sumando los valores y la imprime.
+*/
+
+function mostrarValorTotal() {
+    valorTotal.innerHTML = `
+        <p>Valor total ${carritoFrutas.reduce((acum, fruta) => acum += fruta.precio, 0)}</p>
+    `;
+}
+
+// Ejercicio 8
+// Ejercicio 9
+// Ejercicio 10
 
 function init() {
     imprimirDatosAlumno(alumno);
     mostrarCatalogoFrutas(frutas);
     filtrarProductos();
     escribirCarrito();
+    cantProductosEnCarritoHeader();
+    
 }
 
 init();
