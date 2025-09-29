@@ -92,12 +92,14 @@ let productosCarrito = document.getElementById("productosCarrito");
     Se llama cando apretamos el boton Agregar al carrito
     Recibe la id del producto que queremos agregar.
     Busca ese id en la lista de frutas y lo añade a la lista del carrito, despues llama a la funcion para imprimir la nueva lista del carrito.
+    Guarda en localStorage los articulos y la cantidad de estos.
 */
 
 function agregarACarrito(id) {
     let frutaSeleccionada = frutas.find(fruta => fruta.id === id);
     carritoFrutas.push(frutaSeleccionada);
     console.log(carritoFrutas);
+    localStorage.setItem("indice", `${guardarCarrito()}`);
     mostrarCarrito();
 }
 
@@ -119,32 +121,55 @@ function mostrarCarrito() {
     });
     
     productosCarrito.innerHTML = cartaCarrito;
-    guardarCarrito();
+    
 }
 
 /*
     Recibe el indice de la lista del carrito
     Se llama cuando se apreta el boton Eliminar.
     Solo borra ese producto de la lista y vuelve a mostrar la lista del carrito actualizada.
+    Guarda en localStorage los articulos y la cantidad de estos.
 */
 
 function eliminarProducto(indice) {
     
     carritoFrutas.splice(indice, 1);
+    localStorage.setItem("indice", `${guardarCarrito()}`);
     mostrarCarrito();
 }
 
 // Ejercicio 6
 
+/*
+    Inicializa un indice en 0
+    Guarda en localStorage los objetos fruta en JSON con un indice
+    Retorna el ultimo indice para indicar el tamaño maximo del carrito guardado.
+*/
+
 function guardarCarrito() {
+    let indice = 0;
     carritoFrutas.forEach(fruta =>{
-        localStorage.setItem("fruta", JSON.stringify(fruta));
+        localStorage.setItem(`fruta${indice}`, JSON.stringify(fruta));
+        indice ++;
     });
+    return indice;
     
-    console.log(localStorage.getItem("fruta"));
 }
 
+/*
+    Con la cantidad de productos guardados hace un bucle donde guarda en la lista del carrito los objetos fruta que habian sido guardados.
+    Muestra el carrito al finalizar.
+*/
 
+function escribirCarrito() {
+    indice = parseInt(localStorage.getItem("indice"));
+    for (let i = 0; i < indice; i++) {
+        
+        carritoFrutas.push(JSON.parse(localStorage.getItem(`fruta${i}`)));
+        
+    }
+    mostrarCarrito();
+}
 
 
 
@@ -152,6 +177,7 @@ function init() {
     imprimirDatosAlumno(alumno);
     mostrarCatalogoFrutas(frutas);
     filtrarProductos();
+    escribirCarrito();
 }
 
 init();
