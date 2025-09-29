@@ -1,0 +1,157 @@
+// Ejercicio 1
+
+const frutas = [
+    {id: 1,     nombre: "anana",            precio: 3000,   ruta_img: "../img/anana.jpg"},
+    {id: 2,     nombre: "arandano",         precio: 5000,   ruta_img: "../img/arandano.jpg"},
+    {id: 3,     nombre: "banana",           precio: 1000,   ruta_img: "../img/banana.jpg"},
+    {id: 4,     nombre: "frambuesa",        precio: 3000,   ruta_img: "../img/frambuesa.png"},
+    {id: 5,     nombre: "frutilla",         precio: 3000,   ruta_img: "../img/frutilla.jpg"},
+    {id: 6,     nombre: "kiwi",             precio: 2000,   ruta_img: "../img/kiwi.jpg"},
+    {id: 7,     nombre: "mandarina",        precio: 800,    ruta_img: "../img/mandarina.jpg"},
+    {id: 8,     nombre: "manzana",          precio: 1500,   ruta_img: "../img/manzana.jpg"},
+    {id: 9,     nombre: "naranja",          precio: 9000,   ruta_img: "../img/naranja.jpg"},
+    {id: 10,    nombre: "pera",             precio: 2500,   ruta_img: "../img/pera.jpg"},
+    {id: 11,    nombre: "pomelo-amarillo",  precio: 2000,   ruta_img: "../img/pomelo-amarillo.jpg"},
+    {id: 12,    nombre: "pomelo-rojo",      precio: 2000,   ruta_img: "../img/pomelo-rojo.jpg"},
+    {id: 13,    nombre: "sandia",           precio: 10000,  ruta_img: "../img/sandia.jpg"}
+];
+
+// Ejercicio 2
+
+let alumno = {dni: 46288586, nombre: 'Alejo', apellido: 'Perez'};
+
+/*
+    Obtenemos el div "est-info"
+    Le agregamos los datos del alumno
+    Lo imprimimos dentro del nav y por consola
+*/
+
+function imprimirDatosAlumno(alumno){
+
+    let est_info = document.getElementById("estInfo");
+
+    let mensajeDatosAlumno = `
+        <p>${alumno.nombre} ${alumno.apellido}</p>
+    `;
+    console.log(`Nombre completo: ${alumno.nombre} ${alumno.apellido}`);
+
+    est_info.innerHTML = mensajeDatosAlumno;
+};
+
+//imprimirDatosAlumno();
+
+// Ejercicio 3
+
+let catalogoFrutas = document.getElementById("catalogoFrutas");
+
+/*
+    Recorremos la lista de frutas, le damos formato html y lo imprimimos en el div "catalogoFrutas".
+*/
+
+function mostrarCatalogoFrutas(frutas) {
+    mensajeCatalogoFrutas = "";
+
+
+    frutas.forEach(fruta => {
+        mensajeCatalogoFrutas += `
+            <div class="card-producto">
+                <img src="${fruta.ruta_img}" alt="">
+                <h3>${fruta.nombre}</h3>
+                <p>$${fruta.precio}</p>
+                <button onclick="agregarACarrito(${fruta.id})">Agregar al carrito</button>
+            </div>
+        `;
+    });
+
+    catalogoFrutas.innerHTML = mensajeCatalogoFrutas;
+}
+
+// Ejercicio 4
+
+let barraBusqueda = document.getElementById("barraBusqueda");
+
+/*
+    Cada vez que se deja de presionar una tecla se filtra las frutas que contengan esa frase y se imprimen en el catalogo de frutas.
+*/
+
+function filtrarProductos() {
+    barraBusqueda.addEventListener("keyup", function(){
+        let valorBusqueda = barraBusqueda.value;
+
+        let productosFiltrados = frutas.filter(fruta => fruta.nombre.includes(valorBusqueda))
+        mostrarCatalogoFrutas(productosFiltrados);
+    });
+}
+
+// Ejercicio 5
+
+let carritoFrutas = [];
+let productosCarrito = document.getElementById("productosCarrito");
+
+/*
+    Se llama cando apretamos el boton Agregar al carrito
+    Recibe la id del producto que queremos agregar.
+    Busca ese id en la lista de frutas y lo añade a la lista del carrito, despues llama a la funcion para imprimir la nueva lista del carrito.
+*/
+
+function agregarACarrito(id) {
+    let frutaSeleccionada = frutas.find(fruta => fruta.id === id);
+    carritoFrutas.push(frutaSeleccionada);
+    console.log(carritoFrutas);
+    mostrarCarrito();
+}
+
+/*
+    Es llamada cuando se agrega una fruta al carrito.
+    Recorre la lista de las frutas del carrito y les da un formato html.
+    Luego imprime la nueva lista del carrito.
+*/
+
+function mostrarCarrito() {
+    cartaCarrito = "";
+    carritoFrutas.forEach((fruta, i) => {
+        cartaCarrito += `
+        <li class="bloque-item">
+        <p class="nombre-item">${fruta.nombre} - ${fruta.precio}</p>
+        <button class="boton-eliminar" onclick="eliminarProducto(${i})">Eliminar</button>
+        </li>
+        `;
+    });
+    
+    productosCarrito.innerHTML = cartaCarrito;
+    guardarCarrito();
+}
+
+/*
+    Recibe el indice de la lista del carrito
+    Se llama cuando se apreta el boton Eliminar.
+    Solo borra ese producto de la lista y vuelve a mostrar la lista del carrito actualizada.
+*/
+
+function eliminarProducto(indice) {
+    
+    carritoFrutas.splice(indice, 1);
+    mostrarCarrito();
+}
+
+// Ejercicio 6
+
+function guardarCarrito() {
+    carritoFrutas.forEach(fruta =>{
+        localStorage.setItem("fruta", JSON.stringify(fruta));
+    });
+    
+    console.log(localStorage.getItem("fruta"));
+}
+
+
+
+
+
+function init() {
+    imprimirDatosAlumno(alumno);
+    mostrarCatalogoFrutas(frutas);
+    filtrarProductos();
+}
+
+init();

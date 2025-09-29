@@ -1,0 +1,83 @@
+/* Colores */
+:root {
+    --verde-nav: #38a54c;
+}
+
+/* Bordeado */
+
+header{
+    border: 1px solid;
+}
+
+div {
+    border: 1px solid red;
+}
+
+nav{
+    border: 1px solid green;
+}
+
+p {
+    border: 1px solid yellow;
+}
+
+ul {
+    border: 1px solid blue;
+}
+
+li {
+    border: 1px solid orangered;
+}
+
+span {
+    border: 1px solid violet;
+}
+
+section {
+    border: 1px solid fuchsia;
+}
+
+body {
+    border: 1px solid;
+}
+
+a {
+    border: 1px solid saddlebrown;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--verde-nav);
+    
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+.frutas {
+    text-align: center;
+}
+
+img {
+    width: 100%;
+}
+
+#catalogoFrutas {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.card-producto {
+    flex: 1 1 calc(14.2% - 1rem);
+}
+
+.container{
+    width: 100rem; /* 1200 pixeles */
+    margin: 0 auto;
+    padding: 2rem;
+}
