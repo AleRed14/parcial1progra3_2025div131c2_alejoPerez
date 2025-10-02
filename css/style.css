@@ -4,7 +4,7 @@
 }
 
 /* Bordeado */
-
+/* 
 header{
     border: 1px solid;
 }
@@ -43,7 +43,7 @@ body {
 
 a {
     border: 1px solid saddlebrown;
-}
+} */
 
 header {
     display: flex;

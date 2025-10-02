@@ -218,7 +218,7 @@ function cantProductosEnCarritoHeader() {
 
 function mostrarValorTotal() {
     valorTotal.innerHTML = `
-        <p>Valor total ${carritoFrutas.reduce((acum, fruta) => acum += fruta.precio, 0)}</p>
+        <p>Valor total ${carritoFrutas.reduce((acum, fruta) => acum += fruta.precio * fruta.cantidad, 0)}</p>
     `;
 }
 
