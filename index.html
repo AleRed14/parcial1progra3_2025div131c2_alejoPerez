@@ -35,7 +35,8 @@
     <main class="container">
         <section class="frutas">
             <h1>Nuestras frutas</h1>
-
+            <button onclick="ordenarXPrecio()">Ordenar x precio</button>
+            <button onclick="ordenarXNombre()">Ordenar x nombre</button>
             <div id="catalogoFrutas"></div>
         </section>
 
@@ -45,8 +46,11 @@
             <ul id="productosCarrito">
 
             </ul>
+            <div id="manejoDatos">
+                <button onclick="vaciarCarrito()">Vaciar carrito</button>
+                <div id="valorTotal"></div>
+            </div>
 
-            <div id="valorTotal"></div>
         </section>
     </main>
 

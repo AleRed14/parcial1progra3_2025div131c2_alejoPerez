@@ -5,7 +5,7 @@
 
 /* Bordeado */
 
-/* header{
+header{
     border: 1px solid;
 }
 
@@ -43,7 +43,7 @@ body {
 
 a {
     border: 1px solid saddlebrown;
-} */
+}
 
 header {
     display: flex;
@@ -62,7 +62,7 @@ nav {
 }
 
 img {
-    width: 100%;
+    width: 50%;
 }
 
 #catalogoFrutas {
@@ -77,21 +77,32 @@ img {
 }
 
 .container{
-    width: 100rem; /* 1200 pixeles */
+    width: 75rem; /* 1200 pixeles */
     margin: 0 auto;
     padding: 2rem;
 }
 
-h2 {
+.carrito {
     text-align: center;
 }
-ul {
+/* h2 {
     text-align: center;
+} */
+ul {
+    width: 50%;
+    /* display: grid;
+    justify-content: center; */
+    padding-left: 25%;
 }
 li{
-    align-items: center;
-    width: 50%;
+    
     display: flex;
     justify-content: space-between;
-
 }
+
+/* .nombre-item {
+    margin-right: 1rem;
+}
+.boton-eliminar {
+    margin-left: 1rem;
+} */

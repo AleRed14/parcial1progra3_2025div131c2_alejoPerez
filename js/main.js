@@ -24,7 +24,7 @@ let catalogoFrutas = document.getElementById("catalogoFrutas");
 
 let barraBusqueda = document.getElementById("barraBusqueda");
 
-let carritoFrutas = [];
+const carritoFrutas = [];
 let productosCarrito = document.getElementById("productosCarrito");
 
 let cantCarrito = document.getElementById("cantCarrito");
@@ -100,13 +100,24 @@ function filtrarProductos() {
 /*
     Se llama cando apretamos el boton Agregar al carrito
     Recibe la id del producto que queremos agregar.
-    Busca ese id en la lista de frutas y lo añade a la lista del carrito, despues llama a la funcion para imprimir la nueva lista del carrito.
+    Busca ese id en la lista de frutas le agrega el atributo cantidad en 1 y lo añade a la lista del carrito, 
+    despues llama a la funcion para imprimir la nueva lista del carrito.
+    Si el producto ya esta en la lista solo agrega en el campo cantidad.
     Guarda en localStorage los articulos y la cantidad de estos.
 */
 
 function agregarACarrito(id) {
     let frutaSeleccionada = frutas.find(fruta => fruta.id === id);
-    carritoFrutas.push(frutaSeleccionada);
+    
+    if (carritoFrutas.includes(frutaSeleccionada)) {
+        frutaSeleccionada.cantidad ++;
+    } else {
+
+        frutaSeleccionada.cantidad = 1;
+        carritoFrutas.push(frutaSeleccionada);
+    }
+    console.log(frutaSeleccionada);
+    
     console.log(carritoFrutas);
     localStorage.setItem("indice", `${guardarCarrito()}`);
     mostrarCarrito();
@@ -123,7 +134,7 @@ function mostrarCarrito() {
     carritoFrutas.forEach((fruta, i) => {
         cartaCarrito += `
         <li class="bloque-item">
-        <p class="nombre-item">${fruta.nombre} -  $${fruta.precio}</p>
+        <p class="nombre-item">${fruta.nombre} - $${fruta.precio} - x${fruta.cantidad}</p>
         <button class="boton-eliminar" onclick="eliminarProducto(${i})">Eliminar</button>
         </li>
         `;
@@ -137,13 +148,20 @@ function mostrarCarrito() {
 /*
     Recibe el indice de la lista del carrito
     Se llama cuando se apreta el boton Eliminar.
+    Si el producto tiene mas de uno en cantidad solo descuenta uno, si llega a cero lo borra.
     Solo borra ese producto de la lista y vuelve a mostrar la lista del carrito actualizada.
     Guarda en localStorage los articulos y la cantidad de estos.
 */
 
 function eliminarProducto(indice) {
     
-    carritoFrutas.splice(indice, 1);
+    let frutaAEliminar = carritoFrutas[indice];
+    if (frutaAEliminar.cantidad -1 > 0) {
+        frutaAEliminar.cantidad --;
+    } else {
+
+        carritoFrutas.splice(indice, 1);
+    }
     localStorage.setItem("indice", `${guardarCarrito()}`);
     mostrarCarrito();
 }
@@ -205,7 +223,29 @@ function mostrarValorTotal() {
 }
 
 // Ejercicio 8
+
+function ordenarXPrecio() {
+    console.log("Ordenando precio");
+    
+    const frutasXPrecio = frutas.sort((pri, seg) => pri.precio > seg.precio);
+    mostrarCatalogoFrutas(frutasXPrecio);
+}
+function ordenarXNombre() {
+    console.log("Ordenando nombres");
+    const frutasXNombre = frutas.sort((pri, seg) => pri.nombre > seg.nombre);
+    mostrarCatalogoFrutas(frutasXNombre);
+}
+
 // Ejercicio 9
+// localStorage.clear()
+function vaciarCarrito() {
+    console.log("Vaciadno");
+    
+    carritoFrutas.length = 0;
+    localStorage.setItem("indice", `${guardarCarrito()}`);
+    mostrarCarrito();
+}
+
 // Ejercicio 10
 
 function init() {
@@ -214,7 +254,6 @@ function init() {
     filtrarProductos();
     escribirCarrito();
     cantProductosEnCarritoHeader();
-    
 }
 
 init();
